@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flutserver01.repository.auth.Auth01Mapper">
+    <select id="findByIdno" parameterType="String" resultType="com.flutserver01.model.auth.CmmnUser">
+        SELECT
+            MEM_SEQ     AS memSeq,
+            MEM_IDNO    AS memIdno,
+            MEM_PW      AS memPw,
+            MEM_NAME    AS memName,
+            MEM_BIRTH   AS memBirth,
+            MEM_GENDER  AS memGender,
+            MEM_TIER    AS memTier,
+            MEM_CLUBCD  AS memClubCd,
+            MEM_CLUB    AS memClub,
+            MEM_CREWCD  AS memCrewCd,
+            MEM_CREW    AS memCrew,
+            MEM_ROLE    AS memRole
+        FROM MEM_INF
+        WHERE MEM_IDNO = #{memIdno}
+    </select>
+</mapper>
