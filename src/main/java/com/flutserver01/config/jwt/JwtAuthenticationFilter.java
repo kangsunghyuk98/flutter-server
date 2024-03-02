@@ -17,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
 
@@ -83,6 +82,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("successfulAuthentication : 인증 성공 후 토큰생성을 위해 실행된 메서드 [START]");
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+
         String jwtToken = JWT.create()
                 .withSubject("my_flutter_token")
                 .withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 30))) // 30분
@@ -91,6 +93,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sign(Algorithm.HMAC512("myFlutterApp"));
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
+
+        ObjectMapper om = new ObjectMapper();
+        CmmnUser cmmnUser = principalDetails.getCmmnUser();
+        cmmnUser.setMemPw("");
+        String resBody = om.writeValueAsString(cmmnUser);
+        response.getWriter().write(resBody);
 
         log.info("successfulAuthentication : 인증 성공 후 토큰생성을 위해 실행된 메서드 [E N D]");
     }
