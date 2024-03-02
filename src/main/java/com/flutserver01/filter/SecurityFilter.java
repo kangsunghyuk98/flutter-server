@@ -19,13 +19,7 @@ public class SecurityFilter implements Filter {
 
         if (request.getMethod().equals("POST")) {
             String headerAuth = request.getHeader("Authorization");
-            log.info("SecurityFilter : 들어온 요청 헤더의 Authorization 정보 : {}", headerAuth);
-
-            if (headerAuth.equals("token")) {
-                filterChain.doFilter(request, response);
-            } else {
-                log.info("SecurityFilter : 인증되지 않은 사용자이거나 잘못된 접근입니다.");
-            }
+            filterChain.doFilter(request, response);
         }
     }
 }

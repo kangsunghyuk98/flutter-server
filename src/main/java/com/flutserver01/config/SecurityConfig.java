@@ -1,7 +1,9 @@
 package com.flutserver01.config;
 
 import com.flutserver01.config.jwt.JwtAuthenticationFilter;
+import com.flutserver01.config.jwt.JwtAuthorizationFilter;
 import com.flutserver01.filter.SecurityFilter;
+import com.flutserver01.repository.auth.Auth01Mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,7 @@ public class SecurityConfig {
 
     private final CorsConfig corsConfig;
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final Auth01Mapper mapper;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -43,6 +46,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration)))// formLogin 피활성화에 따른 필터 추가
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(authenticationConfiguration), mapper))
                 .authorizeHttpRequests( authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers("/api/v1/user/**")

@@ -1,5 +1,7 @@
 package com.flutserver01.config.jwt;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flutserver01.config.auth.PrincipalDetails;
 import com.flutserver01.model.auth.CmmnUser;
@@ -7,7 +9,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  *  시큐리티 설정에서 formLogin을 비활성화 했기때문에 작성함.
@@ -79,6 +81,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("successfulAuthentication : 인증 성공 후 토큰생성을 위해 실행된 메서드 [START]");
+        PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+
+        String jwtToken = JWT.create()
+                .withSubject("my_flutter_token")
+                .withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 30))) // 30분
+                .withClaim("memSeq", principalDetails.getCmmnUser().getMemSeq())
+                .withClaim("memIdno", principalDetails.getCmmnUser().getMemIdno())
+                .sign(Algorithm.HMAC512("myFlutterApp"));
+
+        response.addHeader("Authorization", "Bearer " + jwtToken);
 
         log.info("successfulAuthentication : 인증 성공 후 토큰생성을 위해 실행된 메서드 [E N D]");
     }
