@@ -8,7 +8,7 @@ public class CmmnPost {
     private String bbsTitle;
     private String bbsContents;
     private String bbsWriter;
-    private String bbsWriterCd;
+    private int bbsWriterCd;
     private String bbsRegDt;
     private String bbsRegHms;
 }
