@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flutserver01.repository.post.Post01Mapper">
+    <select id="findAllPost" resultType="com.flutserver01.model.post.CmmnPost">
+        SELECT
+            BBS_SEQ         AS bbsSeq,
+            BBS_TITLE       AS bbsTitle,
+            BBS_CONTENTS    AS bbsContents,
+            BBS_WRITER      AS bbsWriter,
+            BBS_WRITER_CD   AS bbsWriterCd,
+            BBS_REG_DT      AS bbsRegDt,
+            BBS_REG_HMS     AS bbsRegHms
+        FROM NOMAL_BBS
+    </select>
+</mapper>

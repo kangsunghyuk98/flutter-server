@@ -16,10 +16,7 @@ public class SecurityFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        if (request.getMethod().equals("POST")) {
-            String headerAuth = request.getHeader("Authorization");
-            filterChain.doFilter(request, response);
-        }
+        String headerAuth = request.getHeader("Authorization");
+        filterChain.doFilter(request, response);
     }
 }
