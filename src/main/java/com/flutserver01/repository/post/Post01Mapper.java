@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface Post01Mapper {
     List<CmmnPost> findAllPost();
+
+    CmmnPost findById(int id);
 }
