@@ -35,6 +35,16 @@ public class Post01Service {
         log.info("findById : 게시글 상세 조회 [START]");
 
         CmmnPost resPost = mapper.findById(id);
+
+        if (resPost == null) {
+            PostRes02 res = PostRes02.builder()
+                    .code("001")
+                    .msg("없는 게시글 번호이거나 삭제된 게시물입니다.")
+                    .data(resPost)
+                    .build();
+            return res;
+        }
+
         PostRes02 res = PostRes02.builder()
                 .code("000")
                 .msg("게시글 조회를 완료하였습니다.")
