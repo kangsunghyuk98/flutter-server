@@ -40,7 +40,7 @@ public class Post01Service {
             PostRes02 res = PostRes02.builder()
                     .code("001")
                     .msg("없는 게시글 번호이거나 삭제된 게시물입니다.")
-                    .data(resPost)
+                    .data(null)
                     .build();
             return res;
         }
