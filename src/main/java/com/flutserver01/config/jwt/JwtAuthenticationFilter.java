@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flutserver01.config.auth.PrincipalDetails;
 import com.flutserver01.model.auth.CmmnUser;
+import com.flutserver01.model.auth.UserRes;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -97,7 +98,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         ObjectMapper om = new ObjectMapper();
         CmmnUser cmmnUser = principalDetails.getCmmnUser();
         cmmnUser.setMemPw("");
-        String resBody = om.writeValueAsString(cmmnUser);
+        UserRes res = UserRes.builder()
+                .code("000")
+                .message("인증에 성공하였습니다.")
+                .data(cmmnUser)
+                .build();
+        String resBody = om.writeValueAsString(res);
         response.getWriter().write(resBody);
 
         log.info("successfulAuthentication : 인증 성공 후 토큰생성을 위해 실행된 메서드 [E N D]");
