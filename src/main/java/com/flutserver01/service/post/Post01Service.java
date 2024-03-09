@@ -3,6 +3,7 @@ package com.flutserver01.service.post;
 import com.flutserver01.model.post.CmmnPost;
 import com.flutserver01.model.post.PostRes01;
 import com.flutserver01.model.post.PostRes02;
+import com.flutserver01.model.post.PostRes03;
 import com.flutserver01.repository.post.Post01Mapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,26 @@ public class Post01Service {
                 .build();
 
         log.info("findById : 게시글 상세 조회 [E N D]");
+        return res;
+    }
+
+    public PostRes03 deleteById (int id) {
+        log.info("findById : 게시글 삭제 [START]");
+
+        int result = mapper.deleteById(id);
+        if (result < 1) {
+            PostRes03 res = PostRes03.builder()
+                    .code("001")
+                    .msg("게시글을 삭제하지 못하였습니다.")
+                    .build();
+            return res;
+        }
+        PostRes03 res = PostRes03.builder()
+                .code("000")
+                .msg("게시글을 정상적으로 삭제하였습니다.")
+                .build();
+
+        log.info("findById : 게시글 삭제 [E N D]");
         return res;
     }
 
