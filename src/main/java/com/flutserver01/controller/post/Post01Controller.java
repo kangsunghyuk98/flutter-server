@@ -1,5 +1,6 @@
 package com.flutserver01.controller.post;
 
+import com.flutserver01.model.post.CmmnPost;
 import com.flutserver01.service.post.Post01Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,11 @@ public class Post01Controller {
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deleteById (@PathVariable("id") int id) {
         return new ResponseEntity<>(service.deleteById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/post/{id}")
+    public ResponseEntity<?> updateById (@PathVariable("id") int id, @RequestBody CmmnPost req) {
+        req.setBbsSeq(id);
+        return new ResponseEntity<>(service.updateById(req), HttpStatus.OK);
     }
 }

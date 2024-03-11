@@ -1,9 +1,6 @@
 package com.flutserver01.service.post;
 
-import com.flutserver01.model.post.CmmnPost;
-import com.flutserver01.model.post.PostRes01;
-import com.flutserver01.model.post.PostRes02;
-import com.flutserver01.model.post.PostRes03;
+import com.flutserver01.model.post.*;
 import com.flutserver01.repository.post.Post01Mapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +71,27 @@ public class Post01Service {
 
         log.info("findById : 게시글 삭제 [E N D]");
         return res;
+    }
+
+    public PostRes04 updateById (CmmnPost cmmnPost) {
+        log.info("findById : 게시글 수정 [START]");
+        int result = mapper.updateById(cmmnPost);
+        if (result < 1) {
+            PostRes04 postRes04 = PostRes04.builder()
+                    .code("001")
+                    .msg("게시글 수정 실패하였습니다.")
+                    .data(null)
+                    .build();
+            return postRes04;
+        }
+        PostRes04 postRes04 = PostRes04.builder()
+                .code("000")
+                .msg("게시글 수정 성공")
+                .data(null)
+                .build();
+
+        log.info("findById : 게시글 수정 [E N D]");
+        return postRes04;
     }
 
 }

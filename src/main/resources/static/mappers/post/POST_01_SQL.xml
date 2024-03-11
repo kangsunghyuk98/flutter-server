@@ -30,4 +30,10 @@
     <delete id="deleteById" parameterType="int">
         DELETE FROM NOMAL_BBS WHERE BBS_SEQ = #{id}
     </delete>
+
+    <update id="updateById" parameterType="com.flutserver01.model.post.CmmnPost">
+        UPDATE NOMAL_BBS SET
+            BBS_TITLE = #{bbsTitle}, BBS_CONTENTS = #{bbsContents}
+        WHERE BBS_SEQ = #{bbsSeq}
+    </update>
 </mapper>

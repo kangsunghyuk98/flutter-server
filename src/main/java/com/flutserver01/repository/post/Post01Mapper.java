@@ -12,4 +12,6 @@ public interface Post01Mapper {
     List<CmmnPost> findAllPost();
     CmmnPost findById(int id);
     int deleteById(int id);
+
+    int updateById(CmmnPost cmmnPost);
 }
