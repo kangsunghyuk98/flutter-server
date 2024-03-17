@@ -54,7 +54,7 @@ public class Post01Service {
     }
 
     public PostRes03 deleteById (int id) {
-        log.info("findById : 게시글 삭제 [START]");
+        log.info("deleteById : 게시글 삭제 [START]");
 
         int result = mapper.deleteById(id);
         if (result < 1) {
@@ -69,12 +69,12 @@ public class Post01Service {
                 .msg("게시글을 정상적으로 삭제하였습니다.")
                 .build();
 
-        log.info("findById : 게시글 삭제 [E N D]");
+        log.info("deleteById : 게시글 삭제 [E N D]");
         return res;
     }
 
     public PostRes04 updateById (CmmnPost cmmnPost) {
-        log.info("findById : 게시글 수정 [START]");
+        log.info("updateById : 게시글 수정 [START]");
         int result = mapper.updateById(cmmnPost);
         if (result < 1) {
             PostRes04 postRes04 = PostRes04.builder()
@@ -84,13 +84,16 @@ public class Post01Service {
                     .build();
             return postRes04;
         }
+        log.info("updateById : 게시글 수정 후 상세조회 SQL 실행");
+        CmmnPost findPost = mapper.findById((int) cmmnPost.getBbsSeq());
+
         PostRes04 postRes04 = PostRes04.builder()
                 .code("000")
                 .msg("게시글 수정 성공")
-                .data(null)
+                .data(findPost)
                 .build();
 
-        log.info("findById : 게시글 수정 [E N D]");
+        log.info("updateById : 게시글 수정 [E N D]");
         return postRes04;
     }
 
