@@ -97,4 +97,25 @@ public class Post01Service {
         return postRes04;
     }
 
+    public PostRes05 save (CmmnPost cmmnPost) {
+        log.info("save : 게시글 작성 [START]");
+
+        int result = mapper.save(cmmnPost);
+
+        if (result < 1) {
+            PostRes05 postRes05 = PostRes05.builder()
+                    .code("001")
+                    .msg("게시글 작성 INSERT 실패")
+                    .build();
+            return postRes05;
+        }
+        PostRes05 postRes05 = PostRes05.builder()
+                .code("000")
+                .msg("게시글 작성 성공")
+                .build();
+
+        log.info("save : 게시글 작성 [END]");
+        return null;
+    }
+
 }

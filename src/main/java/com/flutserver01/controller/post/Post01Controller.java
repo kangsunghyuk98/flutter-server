@@ -19,6 +19,11 @@ public class Post01Controller {
         return new ResponseEntity<>(service.findAllPost(), HttpStatus.OK);
     }
 
+    @PostMapping("/post")
+    public ResponseEntity<?> save (@RequestBody CmmnPost cmmnPost) {
+        return new ResponseEntity<>(service.save(cmmnPost), HttpStatus.OK);
+    }
+
     @GetMapping("/post/{id}")
     public ResponseEntity<?> findById (@PathVariable("id") int id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);

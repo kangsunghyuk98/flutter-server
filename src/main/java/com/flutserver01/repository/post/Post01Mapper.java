@@ -14,4 +14,6 @@ public interface Post01Mapper {
     int deleteById(int id);
 
     int updateById(CmmnPost cmmnPost);
+
+    int save(CmmnPost cmmnPost);
 }

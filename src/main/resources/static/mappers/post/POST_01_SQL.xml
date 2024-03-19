@@ -36,4 +36,26 @@
             BBS_TITLE = #{bbsTitle}, BBS_CONTENTS = #{bbsContents}
         WHERE BBS_SEQ = #{bbsSeq}
     </update>
+
+    <insert id="save" parameterType="com.flutserver01.model.post.CmmnPost">
+        INSERT INTO NOMAL_BBS
+            (
+             BBS_SEQ,
+             BBS_TITLE,
+             BBS,CONTENTS,
+             BBS_WRITER,
+             BBS_WRITER_CD,
+             BBS_REG_DT,
+             BBS_REG_HMS
+            ) VALUES
+            (
+             0,
+             #{bbsTitle},
+             #{bbsContents},
+             #{bbsWriter},
+             #{bbsWriterCd},
+             TO_CHAR(sysdate(), 'YYYYMMDD'),
+             TO_CHAR(sysdate(), 'HH24MISS')
+            )
+    </insert>
 </mapper>
