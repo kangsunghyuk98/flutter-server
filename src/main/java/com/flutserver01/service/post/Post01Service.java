@@ -115,7 +115,7 @@ public class Post01Service {
                 .build();
 
         log.info("save : 게시글 작성 [END]");
-        return null;
+        return postRes05;
     }
 
 }

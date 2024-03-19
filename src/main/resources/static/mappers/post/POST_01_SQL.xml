@@ -42,7 +42,7 @@
             (
              BBS_SEQ,
              BBS_TITLE,
-             BBS,CONTENTS,
+             BBS_CONTENTS,
              BBS_WRITER,
              BBS_WRITER_CD,
              BBS_REG_DT,
