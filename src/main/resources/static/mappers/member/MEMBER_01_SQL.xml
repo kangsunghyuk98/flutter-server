@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flutserver01.repository.auth.Auth01Mapper">
+    <insert id="join" parameterType="com.flutserver01.model.auth.CmmnUser">
+        INSERT INTO KRDB.MEM_INF
+        (
+            MEM_SEQ,
+            MEM_IDNO,
+            MEM_PW,
+            MEM_NAME,
+            MEM_BIRTH,
+            MEM_GENDER,
+            MEM_TIER,
+            MEM_CLUBCD,
+            MEM_CLUB,
+            MEM_CREWCD,
+            MEM_CREW,
+            MEM_ROLE
+        )
+        VALUES
+        (
+            0,
+            #{memIdno},
+            #{memPw},
+            #{memName},
+            #{memBirth},
+            #{memGender},
+            #{memTier},
+            #{memClubCd},
+            #{memClub},
+            #{memCrewCd},
+            #{memCrew},
+            "ROLE_USER"
+        )
+    </insert>
+</mapper>
